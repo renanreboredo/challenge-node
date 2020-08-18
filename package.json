@@ -1,0 +1,56 @@
+{
+  "name": "challenge-node",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon",
+    "build": "babel ./src --out-dir dist --copy-files",
+    "server": "node ./dist/bin/www",
+    "dev": "NODE_ENV=development npm-run-all build server",
+    "prod": "NODE_ENV=production npm run build && npm run server",
+    "prebuild": "rimraf dist",
+    "test": "jest"
+  },
+  "nodemonConfig": {
+    "exec": "npm run dev",
+    "watch": [
+      "src/*",
+      "public/*"
+    ],
+    "ignore": [
+      "**/__tests__/**",
+      "*.test.js",
+      "*.spec.js"
+    ]
+  },
+  "dependencies": {
+    "babel-plugin-inline-dotenv": "^1.5.0",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "helmet": "^3.22.0",
+    "morgan": "^1.9.1",
+    "pg": "^8.3.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^4.41.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.7.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^25.2.7",
+    "nodemon": "^2.0.3",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2"
+  }
+}
