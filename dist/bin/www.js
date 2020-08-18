@@ -15,14 +15,14 @@ var _app = _interopRequireDefault(require("../app"));
 
 var _models = _interopRequireDefault(require("../models"));
 
-var debug = (0, _debug["default"])('challenge-node:server');
+var debug = (0, _debug["default"])("challenge-node:server");
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process && process.env && process.env.PORT || undefined || '3001');
+var port = normalizePort(process && process.env && process.env.PORT || undefined || "3001");
 
-_app["default"].set('port', port);
+_app["default"].set("port", port);
 /**
  * Create HTTP server.
  */
@@ -43,9 +43,8 @@ _models["default"].sequelize.sync({
   });
 });
 
-;
-server.on('error', onError);
-server.on('listening', onListening);
+server.on("error", onError);
+server.on("listening", onListening);
 /**
  * Normalize a port into a number, string, or false.
  */
@@ -71,20 +70,20 @@ function normalizePort(val) {
 
 
 function onError(error) {
-  if (error.syscall !== 'listen') {
+  if (error.syscall !== "listen") {
     throw error;
   }
 
-  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port; // handle specific listen errors with friendly messages
+  var bind = typeof port === "string" ? "Pipe " + port : "Port " + port; // handle specific listen errors with friendly messages
 
   switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+    case "EACCES":
+      console.error(bind + " requires elevated privileges");
       process.exit(1);
       break;
 
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+    case "EADDRINUSE":
+      console.error(bind + " is already in use");
       process.exit(1);
       break;
 
@@ -99,6 +98,6 @@ function onError(error) {
 
 function onListening() {
   var addr = server.address();
-  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+  debug("Listening on " + bind);
 }

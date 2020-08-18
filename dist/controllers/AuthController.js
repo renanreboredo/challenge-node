@@ -15,7 +15,11 @@ var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/cl
 
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _AuthService = _interopRequireDefault(require("../services/AuthService"));
+var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
+
+var _passportConfig = require("../passport-config");
+
+var _UserService = _interopRequireDefault(require("../services/UserService"));
 
 var AuthController = /*#__PURE__*/function () {
   function AuthController() {
@@ -26,7 +30,7 @@ var AuthController = /*#__PURE__*/function () {
     key: "register",
     value: function () {
       var _register = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-        var _req$body, email, password, user;
+        var _req$body, email, password;
 
         return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) {
@@ -34,7 +38,7 @@ var AuthController = /*#__PURE__*/function () {
               case 0:
                 _req$body = req.body, email = _req$body.email, password = _req$body.password;
                 _context.next = 3;
-                return _AuthService["default"].register({
+                return _UserService["default"].createUser({
                   email: email,
                   password: password
                 })["catch"](function () {
@@ -45,13 +49,11 @@ var AuthController = /*#__PURE__*/function () {
                 });
 
               case 3:
-                user = _context.sent;
-                console.log(user);
                 res.json({
                   success: true
                 });
 
-              case 6:
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -64,6 +66,67 @@ var AuthController = /*#__PURE__*/function () {
       }
 
       return register;
+    }()
+  }, {
+    key: "login",
+    value: function () {
+      var _login = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
+        var _req$body2, email, password, user, payload, token;
+
+        return _regenerator["default"].wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _req$body2 = req.body, email = _req$body2.email, password = _req$body2.password;
+
+                if (!(email && password)) {
+                  _context2.next = 7;
+                  break;
+                }
+
+                _context2.next = 4;
+                return _UserService["default"].getUser({
+                  email: email
+                });
+
+              case 4:
+                user = _context2.sent;
+
+                if (!user) {
+                  res.status(401).json({
+                    msg: "No such user found",
+                    user: user
+                  });
+                }
+
+                if (user.password === password) {
+                  payload = {
+                    id: user.id
+                  };
+                  token = _jsonwebtoken["default"].sign(payload, _passportConfig.jwtOptions.secretOrKey);
+                  res.json({
+                    msg: "ok",
+                    token: token
+                  });
+                } else {
+                  res.status(401).json({
+                    msg: "Password is incorrect"
+                  });
+                }
+
+              case 7:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      function login(_x3, _x4) {
+        return _login.apply(this, arguments);
+      }
+
+      return login;
     }()
   }]);
   return AuthController;
