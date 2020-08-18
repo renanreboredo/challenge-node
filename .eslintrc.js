@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    es2020: true,
+    es6: true,
     node: true,
   },
   extends: ["airbnb-base", "prettier"],

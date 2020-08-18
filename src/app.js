@@ -6,8 +6,7 @@ import cors from "cors";
 import helmet from "helmet";
 import logger from "morgan";
 
-import indexRouter from "./routes/index";
-import usersRouter from "./routes/users";
+import authRouter from "./routes/auth";
 
 config.config();
 
@@ -21,7 +20,6 @@ app.use(helmet());
 app.use(cors());
 app.use(compression());
 
-app.use("/api", indexRouter);
-app.use("/api/users", usersRouter);
+app.use("/api", authRouter);
 
 module.exports = app;

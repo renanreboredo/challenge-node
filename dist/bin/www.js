@@ -5,6 +5,8 @@
  */
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 var _debug = _interopRequireDefault(require("debug"));
 
 var _http = _interopRequireDefault(require("http"));
@@ -12,8 +14,6 @@ var _http = _interopRequireDefault(require("http"));
 var _app = _interopRequireDefault(require("../app"));
 
 var _models = _interopRequireDefault(require("../models"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var debug = (0, _debug["default"])('challenge-node:server');
 /**

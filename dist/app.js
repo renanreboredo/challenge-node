@@ -1,5 +1,7 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
 var _express = _interopRequireDefault(require("express"));
@@ -14,11 +16,7 @@ var _helmet = _interopRequireDefault(require("helmet"));
 
 var _morgan = _interopRequireDefault(require("morgan"));
 
-var _index = _interopRequireDefault(require("./routes/index"));
-
-var _users = _interopRequireDefault(require("./routes/users"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+var _auth = _interopRequireDefault(require("./routes/auth"));
 
 _dotenv["default"].config();
 
@@ -32,6 +30,5 @@ app.use((0, _cookieParser["default"])());
 app.use((0, _helmet["default"])());
 app.use((0, _cors["default"])());
 app.use((0, _compression["default"])());
-app.use("/api", _index["default"]);
-app.use("/api/users", _users["default"]);
+app.use("/api", _auth["default"]);
 module.exports = app;
